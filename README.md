@@ -5,6 +5,4 @@
 
 https://github.com/misakaio/chnroutes2
 
-https://awavenue.top
-
 https://core.telegram.org/resources/cidr.txt
