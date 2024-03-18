@@ -1,0 +1,48 @@
+name: D49U_name
+
+on:
+    schedule:
+      - cron: '12 1 * * *'
+    workflow_dispatch:
+
+jobs:
+  D49U_jobs:
+
+    runs-on: ubuntu-latest  # 使用最新版Ubuntu作为运行环境
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+
+    - name: D49U_49
+      run: |
+        git config --global user.name "49_bot"
+        git config --global user.email "kp4nayh8@duck.com"
+
+        # 创建一个孤儿分支，并且清空所有文件
+        git checkout --orphan raw49
+        git rm -rf .
+
+        # TGIP
+        curl -L -o tgip.txt https://core.telegram.org/resources/cidr.txt # 下载 Telegram IP 地址列表
+        sed -i '/:/d' tgip.txt # 删除包含冒号的行
+        sed -i '/^$/d' tgip.txt # 删除空行
+        sed -i 's/^/IP-CIDR,/' tgip.txt # 在所有行前加上 IP-CIDR
+
+        # CNIP
+        curl -L -o cnip.txt https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt
+        sed -i '/#/d' cnip.txt # 删除包含井号的行
+        sed -i '/^$/d' cnip.txt # 删除空行
+        sed -i 's/^/IP-CIDR,/' cnip.txt # 在所有行前加上 IP-CIDR
+
+        # AD规则
+        curl -L -o ad.txt https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge.txt
+        sed -i '/#/d' ad.txt # 删除包含井号的行
+        sed -i 's/^\.//' ad.txt # 删除所有行开头的点
+        sed -i '/^$/d' ad.txt # 删除空行
+        sed -i 's/^/DOMAIN-SUFFIX,/g' ad.txt # 在所有行前加上 DOMAIN-SUFFIX
+
+        # git 强制上传
+        git add .
+        git commit -m up
+        git push -f -u origin raw49
