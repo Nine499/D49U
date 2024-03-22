@@ -37,7 +37,7 @@ jobs:
           sed -i 's/^/IP-CIDR,/' cnip.txt # 在所有行前加上 IP-CIDR
 
           # CNIP-clang
-          # curl -L -o cnip.txt https://ispip.clang.cn/all_cn.txt
+          # curl -L -o cnip.txt https://ispip.clang.cn/all_cn_cidr.txt
           # sed -i 's/^/IP-CIDR,/' cnip.txt # 在所有行前加上 IP-CIDR
 
           # git 强制上传
