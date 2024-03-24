@@ -24,6 +24,14 @@ jobs:
           git checkout --orphan raw49
           git rm -rf .
 
+          # 广告规则
+          curl -L -o ad.txt https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-hosts.txt # 下载广告规则
+          sed -i '/#/d' ad.txt # 删除包含井号的行
+          sed -i '/localhost/d' ad.txt # 删除包含localhost的行
+          sed -i 's/^127\.0\.0\.1 //' ad.txt # 删除 127.0.0.1
+          sed -i '/^$/d' ad.txt # 删除空行
+          sed -i 's/^/DOMAIN-SUFFIX,/' ad.txt # 在所有行前加上DOMAIN-SUFFIX
+
           # TGIP
           curl -L -o tgip.txt https://core.telegram.org/resources/cidr.txt # 下载 Telegram IP 地址列表
           sed -i '/:/d' tgip.txt # 删除包含冒号的行

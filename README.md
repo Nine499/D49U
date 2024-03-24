@@ -9,3 +9,5 @@ https://github.com/misakaio/chnroutes2
 https://core.telegram.org/resources/cidr.txt
 
 https://ispip.clang.cn/all_cn_cidr.txt
+
+https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-hosts.txt
