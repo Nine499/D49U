@@ -39,14 +39,15 @@ jobs:
           sed -i 's/^/IP-CIDR,/' tgip.txt # 在所有行前加上 IP-CIDR
 
           # CNIP-misaka
-          curl -L -o cnip.txt https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt
-          sed -i '/#/d' cnip.txt # 删除包含井号的行
-          sed -i '/^$/d' cnip.txt # 删除空行
-          sed -i 's/^/IP-CIDR,/' cnip.txt # 在所有行前加上 IP-CIDR
+          curl -L -o misaka-cnip.txt https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt
+          sed -i '/#/d' misaka-cnip.txt # 删除包含井号的行
+          sed -i '/^$/d' misaka-cnip.txt # 删除空行
+          sed -i 's/^/IP-CIDR,/' misaka-cnip.txt # 在所有行前加上 IP-CIDR
 
           # CNIP-clang
-          # curl -L -o cnip.txt https://ispip.clang.cn/all_cn_cidr.txt
-          # sed -i 's/^/IP-CIDR,/' cnip.txt # 在所有行前加上 IP-CIDR
+          curl -L -o clang-cnip.txt https://ispip.clang.cn/all_cn_cidr.txt
+          sed -i '/^$/d' clang-cnip.txt # 删除空行
+          sed -i 's/^/IP-CIDR,/' clang-cnip.txt # 在所有行前加上 IP-CIDR
 
           # git 强制上传
           git add .

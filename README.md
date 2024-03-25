@@ -4,11 +4,11 @@
 
 ## 数据来源
 
-(苍狼)中国大陆 IPv4
+[(苍狼)中国大陆 IPv4](https://d49u.010811.xyz/clang-cnip.txt)
 
 > https://ispip.clang.cn/all_cn_cidr.txt
 
-[(misakaio)中国大陆 IPv4](https://d49u.010811.xyz/cnip.txt)
+[(misakaio)中国大陆 IPv4](https://d49u.010811.xyz/misaka-cnip.txt)
 
 > https://github.com/misakaio/chnroutes2
 
