@@ -1,0 +1,57 @@
+name: D49U_name
+
+on:
+  schedule:
+    - cron: "12 1 * * *"
+  push:
+  workflow_dispatch:
+
+jobs:
+  D49U_jobs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: 创建输出文件夹
+        run: |
+          mkdir -p raw49
+
+      - name: 创建修改广告规则
+        run: |
+          curl -L -o raw49/ad.txt https://github.com/TG-Twilight/AWAvenue-Ads-Rule/raw/build/rule/domain.txt # 下载广告域名
+          sed -i 's/^/DOMAIN-SUFFIX,/' raw49/ad.txt # 在所有行前加上 DOMAIN-SUFFIX
+
+      - name: 创建修改TGIP
+        run: |
+          curl -L -o raw49/tgip.txt https://core.telegram.org/resources/cidr.txt # 下载 Telegram IP 地址列表
+          sed -i '/:/d' raw49/tgip.txt # 删除包含冒号的行
+          sed -i '/^$/d' raw49/tgip.txt # 删除空行
+          sed -i 's/^/IP-CIDR,/' raw49/tgip.txt # 在所有行前加上 IP-CIDR
+
+      - name: 创建修改CNIP-misaka
+        run: |
+          curl -L -o raw49/misaka-cnip.txt https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt
+          sed -i '/#/d' raw49/misaka-cnip.txt # 删除包含井号的行
+          sed -i '/^$/d' raw49/misaka-cnip.txt # 删除空行
+          sed -i 's/^/IP-CIDR,/' raw49/misaka-cnip.txt # 在所有行前加上 IP-CIDR
+
+      - name: 创建修改CNIP-skk
+        run: |
+          curl -L -o raw49/skk-cnip.txt https://ruleset.skk.moe/List/ip/china_ip.conf
+          sed -i '/#/d' raw49/skk-cnip.txt # 删除包含井号的行
+
+      - name: 创建修改CNIP-clang
+        run: |
+          curl -L -o raw49/clang-cnip.txt https://ispip.clang.cn/all_cn_cidr.txt
+          sed -i '/^$/d' raw49/clang-cnip.txt # 删除空行
+          sed -i 's/^/IP-CIDR,/' raw49/clang-cnip.txt # 在所有行前加上 IP-CIDR
+
+      - name: 将文件上传到 raw49 分支
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          git-config-name: fake49_bot
+          git-config-email: y2127xfw@duck.com
+          folder: raw49
+          branch: raw49
